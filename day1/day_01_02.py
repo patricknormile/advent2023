@@ -1028,8 +1028,8 @@ def first_dig_last_dig(x) :
         raise ValueError(f"failed at {x}")
     return out
 
-
-each_code = callibration_code.split('\n')
-nums = [first_dig_last_dig(x) for x in each_code]
-out = sum(nums)
-print(out)
+if __name__ == "__main__" : 
+    each_code = callibration_code.split('\n')
+    nums = [first_dig_last_dig(x) for x in each_code]
+    out = sum(nums)
+    print(out)

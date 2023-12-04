@@ -1006,9 +1006,9 @@ def first_dig_last_dig(x) :
     dig0, dign = digits[0], digits[-1]
     return int(dig0 + dign)
 
-
-each_code = callibration_code.split('\n')
-x=each_code[0]
-nums = [first_dig_last_dig(x) for x in each_code]
-out = sum(nums)
-print(out)
+if __name__ == "__main__" : 
+    each_code = callibration_code.split('\n')
+    x=each_code[0]
+    nums = [first_dig_last_dig(x) for x in each_code]
+    out = sum(nums)
+    print(out)
