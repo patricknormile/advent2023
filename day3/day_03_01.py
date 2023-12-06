@@ -139,8 +139,6 @@ data = """...788.............................54.........501...........555.......
 .......&...625......*.........7*121...........494......=...8......*....@..............................*..........*......998*973.......$.....
 ....691............614...795..........152............120...........238..496...........................477..........................994......"""
 
-import re
-
 def make_string_array(string) : 
     substrings = string.split('\n')
     array = [list(s) for s in substrings]
@@ -179,9 +177,50 @@ def find_numbers_in_row(idx) :
     #return ids_with_numbers, numbers_collected
     return number_places
 
-def determine_if_usable(in_dict) : 
-    pass
+def determine_if_usable(row_num, in_dict) : 
+    array = make_string_array(data)
+    N = len(array)
+    M = len(array[0])
+    numbers = []
+    symbols = ['&','%','$','#','/','=','+','*','@','-']
+    for k, v_d in in_dict.items() : 
+        candidate_number = int("".join(v_d['numbers']))
+        start, stop = v_d['start'], v_d['stop']
+        start_row = row_num - 1 if row_num >= 1 else row_num
+        end_row = row_num + 1 if row_num < N else row_num
+        rows_iterable = range(start_row, end_row+1)
+        start_column = start - 1 if start > 0 else start
+        stop_column = stop + 1 if stop < M else stop
+        cols_iterable = range(start_column, stop_column+1)
+        for i in rows_iterable : 
+            for j in cols_iterable : 
+                if (i == row_num) & (j >= start) & (j <= stop) : 
+                    continue
+                elif i < N and j < M :  
+                    try : 
+                        if array[i][j] in symbols: 
+                            numbers.append(candidate_number)
+                    except : 
+                        raise Exception(f"failed at {i},{j}")
+                else : 
+                    pass
+    return numbers
 
+def all_usable_numbers() : 
+    all_numbers = []
+    for i in range(len(data)) : 
+        try : 
+            numbers_places = find_numbers_in_row(i) 
+            usable_numbers = determine_if_usable(i, numbers_places)
+            all_numbers.extend(usable_numbers)
+        except : 
+            return sum(all_numbers)
+            #raise Exception(f"failed at {i}, current sum {sum(all_numbers)}")
+    return sum(all_numbers)
+
+def main() : 
+
+    print(all_usable_numbers())
 
 if __name__ == "__main__" : 
-    print(find_numbers_in_row(10))
+    main()
