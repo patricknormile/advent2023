@@ -174,7 +174,6 @@ def find_numbers_in_row(idx) :
             number_places[k] = {'start':last_j,
                                 'stop': ids_with_numbers[-1],
                                 'numbers' : row[last_j:ids_with_numbers[j]+1]}
-    #return ids_with_numbers, numbers_collected
     return number_places
 
 def determine_if_usable(row_num, in_dict) : 
