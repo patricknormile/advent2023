@@ -202,7 +202,7 @@ def collect_adjacents() :
     return sum(numbers)
 
 # # new approach
-
+# https://imgur.com/a/y4U7TDo
 
 if __name__ == "__main__" : 
     print(collect_adjacents())
