@@ -146,6 +146,63 @@ data = """...788.............................54.........501...........555.......
 .......&...625......*.........7*121...........494......=...8......*....@..............................*..........*......998*973.......$.....
 ....691............614...795..........152............120...........238..496...........................477..........................994......"""
 
-def adjacent_star() : 
-    pass
-print(find_numbers_in_row(10))
+def all_numbers() : 
+    array = make_string_array(data)
+    N = len(array)
+    M = len(array[0])
+    numbers = {(i,j) : v 
+    for i in range(len(array))
+    for j,v in find_numbers_in_row(i).items()}
+    return numbers, N, M, array
+def all_numbers_near_star() : 
+    numbers, N, M, array = all_numbers()
+    out = {} 
+    for k,v in numbers.items() : 
+        row_num = k[0]
+        candidate_number = int("".join(v['numbers']))
+        start, stop = v['start'], v['stop']
+        start_row = row_num - 1 if row_num >= 1 else row_num
+        end_row = row_num + 1 if row_num < N else row_num
+        rows_iterable = range(start_row, end_row+1)
+        start_column = start - 1 if start > 0 else start
+        stop_column = stop + 1 if stop < M else stop
+        cols_iterable = range(start_column, stop_column+1)
+        for i in rows_iterable : 
+            for j in cols_iterable : 
+                if (i == row_num) & (j >= start) & (j <= stop) : 
+                    continue
+                elif i < N and j < M :  
+                    try : 
+                        if array[i][j] == '*' : 
+                            out[k] = {'number':candidate_number,'star_place':(i,j)}
+                    except : 
+                        raise Exception(f"failed at {i},{j}")
+                else : 
+                    pass
+    return out
+
+def collect_adjacents() : 
+    #check for more than 2?
+    near_star = all_numbers_near_star()
+    numbers = []
+    tracking = []
+    for k, v in near_star.items() : 
+        first_number = v['number']
+        place = v['star_place']
+        for k_, v_ in near_star.items() : 
+            if k == k_ : 
+                continue
+            if v_['star_place'] == place :
+                if k_ in tracking : 
+                    continue
+                else : 
+                    numbers.append(first_number * v_['number'])
+                    tracking.append(k_)
+                    
+    return sum(numbers)
+
+# # new approach
+
+
+if __name__ == "__main__" : 
+    print(collect_adjacents())

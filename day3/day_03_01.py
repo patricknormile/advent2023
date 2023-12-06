@@ -207,14 +207,13 @@ def determine_if_usable(row_num, in_dict) :
 
 def all_usable_numbers() : 
     all_numbers = []
-    for i in range(len(data)) : 
+    for i in range(len(make_string_array(data))) : 
         try : 
             numbers_places = find_numbers_in_row(i) 
             usable_numbers = determine_if_usable(i, numbers_places)
             all_numbers.extend(usable_numbers)
         except : 
-            return sum(all_numbers)
-            #raise Exception(f"failed at {i}, current sum {sum(all_numbers)}")
+            raise Exception(f"failed at {i}, current sum {sum(all_numbers)}")
     return sum(all_numbers)
 
 def main() : 
