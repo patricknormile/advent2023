@@ -28,30 +28,33 @@ def parse_seeds(seeds) :
     for x in re.sub("[a-zA-Z\-:]","",seeds).strip().split(" ")]
     return out
 
-def dict_lookup(dictionary, key) : 
-    if key not in dictionary.keys() : 
-        return key
-    else :
-        return dictionary[key]
+
+def dict_lookup(rows, value) : 
+    rows_list = re.sub("[a-zA-Z\-:]","",rows).strip().split("\n")
+    for r in rows_list : 
+        dest, start, step = [int(x) for x in r.strip().split(' ')]
+        if value >= start and value < start + step : 
+            increment = value - start
+            return dest + increment
+        else : 
+            continue
+    return value
 
 def make_steps(seeds_str, *args) : 
     seeds = parse_seeds(seeds_str)
     paths = [seeds]
     for a in args : 
         last = paths[-1]
-        mapper = parse_rows(a)
-        adds = [dict_lookup(mapper,l) for l in last]
+        adds = [dict_lookup(a,l) for l in last]
         paths.append(adds)
-        del mapper
     return paths
-
 
 def main() : 
     data = load_data("day5/day_5_data.txt")
     splits = split_data(data)
     seeds, maps = splits[0], splits[1:]
     steps = make_steps(seeds, *maps)
-    print(steps)
     print(min(steps[-1]))
+
 if __name__ == "__main__" : 
     main()
