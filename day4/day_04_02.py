@@ -14,7 +14,6 @@ def score(row) :
     win_size = len(winning_set & yours_set)
     return win_size
 def copies(rows) : 
-    # need to do recursion
     N = len(rows)
     initial = [0]*N
     out = dict(zip(range(N),initial))
