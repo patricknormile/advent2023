@@ -21,13 +21,14 @@ def copies(rows) :
     for i, item in enumerate(rows) : 
         out[i] += 1
         scr = score(item)
-        if scr > 0 : 
-            for j in range(1, scr+1) :
-                out[i + j] += 1
+        for k in range(out[i]) : 
+            if scr > 0 : 
+                for j in range(1, scr+1) :
+                    out[i + j] += 1
     return out
 
 def main() : 
-    data = load_data()
+    data = load_data("day_4_data.txt")
     rows = data_rows(data)
     games = copies(rows)
     print(sum(games.values()))
@@ -36,3 +37,4 @@ def main() :
 
 if __name__ == "__main__" : 
     main()
+    

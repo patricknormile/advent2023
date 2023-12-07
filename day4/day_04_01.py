@@ -1,8 +1,8 @@
 import os
 import re
-def load_data() : 
+def load_data(file="day_4_data.txt") : 
     directory = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(directory, "day_4_data.txt")
+    file_path = os.path.join(directory, file)
     with open(file_path, "r") as f_ : 
         data = f_.read()
     return data
