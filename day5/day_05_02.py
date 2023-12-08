@@ -16,16 +16,17 @@ def parse_seeds(seeds) :
     n = len(seedssteps)
     for x in range(0, n, 2) : 
         for i in range(seedssteps[x+1]) : 
-            yield seedssteps[x] + i
+            if i % 50 == 0 : 
+                yield seedssteps[x] + i
 
-def get_shortest(seeds_str, *args) : #switch order, use generators
+def get_shortest(seeds_str, *args) : 
     seeds = parse_seeds(seeds_str)
     shortest = 99999999999
-    for s in seeds : 
+    for s in seeds : # do range insntead ? 
         path = [s]
         for a in args : 
             last = path[-1]
-            adds = dict_lookup(a,last)
+            adds = dict_lookup(a,last) # parse out rows so faster
             path.append(adds)
         if path[-1] < shortest : 
             shortest = path[-1]
