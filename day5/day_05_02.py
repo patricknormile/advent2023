@@ -28,8 +28,8 @@ def get_shortest(seeds_str, *args) : #switch order, use generators
             adds = dict_lookup(a,last)
             path.append(adds)
         if path[-1] < shortest : 
-            print(f"shortest at seed {s} value {path[-1]}")
             shortest = path[-1]
+            print(f"at seed {s}, shortest value {shortest}")
     return shortest
 
 def main() : 
