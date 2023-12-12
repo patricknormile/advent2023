@@ -69,16 +69,16 @@ def find_place(hand, bid, hands, bids, mapping) :
                 continue
             else : 
                 break
-    if i + 1 == len(hands) : 
-        out_hands = hands + [hand]
-        out_bids = bids + [bid]
-    elif i == 0 : 
-        out_hands = [hand] + hands
-        out_bids = [bid] + bids
-    else :
-        out_hands = hands[:i] + [hand] + hands[i:]
-        out_bids = bids[:i] + [bid] + bids[i:]
-    return out_hands, out_bids
+        if i + 1 == len(hands) : 
+            out_hands = hands + [hand]
+            out_bids = bids + [bid]
+        elif i == 0 : 
+            out_hands = [hand] + hands
+            out_bids = [bid] + bids
+        else :
+            out_hands = hands[:i] + [hand] + hands[i:]
+            out_bids = bids[:i] + [bid] + bids[i:]
+        return out_hands, out_bids
 
 def make_it_happen(hands, bids, mapping) : 
     data_store = dict(zip(range(1,8), [[[],[]]]*7))
