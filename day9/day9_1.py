@@ -21,7 +21,6 @@ def get_diff_sequence(array) :
 
 def get_prediction(row) : 
     diff_sequences = get_diff_sequence(row) 
-    n_steps = len(diff_sequences)
     for i,diffs in list(enumerate(diff_sequences[1:], 1))[::-1] :
         add = diffs[-1]
         next = diff_sequences[i - 1][-1]
